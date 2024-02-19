@@ -1,21 +1,29 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import React from 'react';
-import Home from './pages/Home';
+
+
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
+import User from './pages/User/User';
+import Footer from './components/Footer/Footer.jsx'
+import Header from './components/Header/Header';
+
 
 function App() {
   return (
-    <React.StrictMode>
       <Router>
         <div>
-          <div className='main_container'>            
+          <Header/>
+          <div>                   
             <Routes>
-              <Route path="/" element={<Home />} />  
+              <Route path="/" element={<Home />} /> 
+              <Route path="/login" element={<Login />} />
+              <Route path="/user" element={<User />} />
+              <Route path="*" /> 
             </Routes>
           </div>
-          
+          <Footer />
         </div>
       </Router>
-    </React.StrictMode>
   );
 }
 
