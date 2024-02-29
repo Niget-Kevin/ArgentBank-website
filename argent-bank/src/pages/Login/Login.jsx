@@ -1,61 +1,97 @@
-import React, { useState, useEffect } from 'react';
+
+import './Login.scss';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../redux/slices/authSlice';
-import { loginApi } from '../../redux/api/api';
+import { loginFailed, loginSuccess } from '../../redux/actions/authActions.jsx';
 import './Login.scss'
+
+
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const dispatch = useDispatch();
+    const [rememberMe, setRememberMe] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
     const navigate = useNavigate();
-    const error = useSelector((state) => state.auth.error);
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate('/user');
-        }
-    }, [isAuthenticated, navigate]);
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        
 
-    
-    const handleSubmit = async (e) => {
-        e.preventDefault();
         try {
-            const token = await loginApi(email, password);
-            dispatch(login({ token }));
-        } catch (error) {
+            const response = await fetch("http://localhost:3001/api/v1/user/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+            });
             
+            if (response.ok) {
+                const data = await response.json();
+                const token = data.body.token;
+                dispatch(loginSuccess(token));
+                sessionStorage.setItem("token", token);
+                if (rememberMe) {
+                    localStorage.setItem("token", token);
+                }
+                navigate('/profile');
+            } else {
+                const error = "Incorrect email or password";
+                dispatch(loginFailed(error));
+                setErrorMessage(error);
+            }
+        } catch (error) {
+            console.error(error);
+            setErrorMessage("An error occurred");
         }
     };
-    
-    
 
     return (
-        <main className="main bg-dark">
-            <section className="sign-in-content">
-                <i className="fa fa-user-circle sign-in-icon"></i>
-                <h1>Sign In</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="input-wrapper">
-                        <label htmlFor="username">Username</label>
-                        <input type="text" id="username" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    </div>
-                    <div className="input-wrapper">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                    </div>
-                    <div className="input-remember">
-                        <input type="checkbox" id="remember-me" />
-                        <label htmlFor="remember-me">Remember me</label>
-                    </div>
-                    
-                    <button type="submit" className="sign-in-button">Sign In</button>
-                    {error && <p className="error-message">{error}</p>}
-                </form>
-            </section>
-        </main>
+        <div className='signin-page main'>
+            <main className='bg-dark'>
+                <section className='sign-in-content'>
+                    <i className="fa-solid fa-circle-user"></i>
+                    <h2>Sign In</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className='input-wrapper'>
+                            <label htmlFor='email'>Username</label>
+                            <input 
+                                id='email' 
+                                type='text'
+                                value={email}
+                                onChange={(event) => setEmail(event.target.value)}
+                                autoComplete="email"
+                            />
+                        </div>
+                        <div className='input-wrapper'>
+                            <label htmlFor='password'>Password</label>
+                            <input 
+                                id='password' 
+                                type='password'
+                                value={password}
+                                onChange={(event) => setPassword(event.target.value)}
+                                autoComplete="current-password"
+                            />
+                        </div>
+                        <div className='input-remember'>
+                            <input 
+                                id='remember-me' 
+                                type='checkbox' 
+                                checked={rememberMe}
+                                onChange={(event) => setRememberMe(event.target.checked)}
+                            />
+                            <label htmlFor='remember-me'>Remember me</label>
+                        </div>
+                        <button className="sign-in-button">Sign In</button>
+                        {errorMessage && <p className='error-message'>{errorMessage}</p>}
+                    </form>
+                </section>
+            </main>
+        </div>
     );
 }
 

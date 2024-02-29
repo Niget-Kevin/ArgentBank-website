@@ -1,41 +1,53 @@
-import logo from '../../designs/img/argentBankLogo.png'
-import { NavLink } from "react-router-dom";
-
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { logout } from '../../redux/slices/authSlice';
-import './header.scss'
+import { NavLink, useNavigate } from 'react-router-dom';
+import Logo from '../../assets/images/argentBankLogo.webp';
+import { logout } from '../../redux/actions/authActions';
+import './header.scss';
 
 function Header() {
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Obtenez l'état d'authentification depuis le Redux store
-    const dispatch = useDispatch(); // Initialisez useDispatch pour déclencher l'action logout
 
-    const handleLogout = () => {
-        dispatch(logout()); // Déclenchez l'action de déconnexion lorsque le bouton "Sign Out" est cliqué
-    };
-    return (    
-        <nav className="main-nav">
-            <NavLink to="/" className="main-nav-logo">                  
-                <img className='main-nav-logo-image'src={logo} alt='Logo Argent Bank' />                   
-            </NavLink> 
+    const connected = useSelector((state) => state.auth.token);
+    const userName = useSelector((state) => state.user.userData.username); 
 
-            {/* Condition pour afficher "Sign In" ou "Sign Out" en fonction de l'état d'authentification */}
-            {isAuthenticated ? (
-                <NavLink to="/" onClick={handleLogout} className="main-nav-item">
-                    <FontAwesomeIcon className="main-nav-item" icon={faUserCircle} />
-                    Sign Out
-                </NavLink>
-            ) : (
-                <NavLink to="/login" className="main-nav-item">
-                    <FontAwesomeIcon className="main-nav-item" icon={faUserCircle} />
-                    Sign In
-                </NavLink>
-            )}
-        </nav>
-    )}
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-
-
+    const logoutHandler = () => {
+        dispatch(logout());
+        sessionStorage.clear();
+        localStorage.clear();
+        navigate('/');
+    }
+    return (
+        <header>
+            <h1 className='sr-only'>Argent Bank</h1>
+            <nav className="main-nav">
+                <NavLink to="/" className="main-nav-logo">
+                    <img src={Logo} alt="Logo Argent Bank "  className="main-nav-logo-image"/>
+                </NavLink> 
+                {connected ? (
+                    <div className='connected'>
+                        <NavLink to='/profile'>
+                            <i className='fa-solid fa-2x fa-circle-user' />
+                            <p>{userName}</p>
+                        </NavLink>
+                        <NavLink to='/' onClick={logoutHandler} className="main-nav-item">
+                            <i className='fa-solid fa-arrow-right-from-bracket' />
+                            <p> Sign out </p>
+                        </NavLink>
+                    </div>
+                ) : (
+                    <div className='not-connected'>
+                        <NavLink to='/login' className="main-nav-item">
+                            <i className="fa-solid fa-circle-user main-nav-item"></i>
+                            <p>Sign In</p>
+                        </NavLink>
+                    </div>
+                )}
+            </nav>
+        </header>
+    )
+}
 
 export default Header;

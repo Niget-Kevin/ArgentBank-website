@@ -6,8 +6,10 @@
   }
   
   .main-nav a {
+    display: flex;
     font-weight: bold;
     color: #2c3e50;
+    margin-right: 0.5rem;
   }
   
   .main-nav a.router-link-exact-active {
@@ -33,4 +35,11 @@
     width: 200px;
   }
 
-  
+  .connected { display: flex;
+    gap: 1rem;   
+    margin-right: 0.5rem;   
+    
+  }
+  i { font-size: 1.2rem;
+    margin-right: 0.5rem;
+  }
