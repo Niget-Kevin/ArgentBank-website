@@ -49,8 +49,8 @@ function AccountUser() {
     }, [dispatch, token]);
 
     return (
-        <div className='profile-page'>
-            <main className='bg-dark'>
+       /*  <div className='user-page'> */
+            <main className='main bg-dark'>
                 < User />
                 {AccountData.map((data) => (
                     <Account 
@@ -61,7 +61,7 @@ function AccountUser() {
                     />
                 ))}
             </main>
-        </div>
+        /* </div> */
     )
 }
 

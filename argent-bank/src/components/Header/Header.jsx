@@ -19,34 +19,32 @@ function Header() {
         localStorage.clear();
         navigate('/');
     }
-    return (
-        <header>
-            <h1 className='sr-only'>Argent Bank</h1>
+    return (                   
             <nav className="main-nav">
                 <NavLink to="/" className="main-nav-logo">
                     <img src={Logo} alt="Logo Argent Bank "  className="main-nav-logo-image"/>
+                    <h1 className='sr-only'>Argent Bank</h1>
                 </NavLink> 
                 {connected ? (
-                    <div className='connected'>
+                    <div className='login'>
                         <NavLink to='/profile'>
-                            <i className='fa-solid fa-2x fa-circle-user' />
+                            <i className='fa fa-user-circle' />
                             <p>{userName}</p>
                         </NavLink>
                         <NavLink to='/' onClick={logoutHandler} className="main-nav-item">
-                            <i className='fa-solid fa-arrow-right-from-bracket' />
+                            <i className='fa fa-sign-out'/>
                             <p> Sign out </p>
                         </NavLink>
                     </div>
                 ) : (
-                    <div className='not-connected'>
+                    <div className='logout'>
                         <NavLink to='/login' className="main-nav-item">
-                            <i className="fa-solid fa-circle-user main-nav-item"></i>
+                            <i className="fa fa-user-circle"></i>
                             <p>Sign In</p>
                         </NavLink>
                     </div>
                 )}
-            </nav>
-        </header>
+            </nav>        
     )
 }
 

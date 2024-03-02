@@ -51,8 +51,8 @@ function Login() {
     };
 
     return (
-        <div className='signin-page main'>
-            <main className='bg-dark'>
+       
+            <main className=' main bg-dark'>
                 <section className='sign-in-content'>
                     <i className="fa-solid fa-circle-user"></i>
                     <h2>Sign In</h2>
@@ -91,7 +91,7 @@ function Login() {
                     </form>
                 </section>
             </main>
-        </div>
+        
     );
 }
 

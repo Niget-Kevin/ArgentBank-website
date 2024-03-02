@@ -6,14 +6,14 @@ import Footer from './components/Footer/Footer.jsx';
 import Home from './pages/Home/Home.jsx';
 import Login from './pages/Login/Login.jsx';
 import User from './pages/AccountUser/AccountUser.jsx';
-import './App.css';
+import './App.scss';
 
 export default function App () {
     const connected = useSelector((state) => state.auth.isConnected);
 
     return (
         <div>
-            <div>
+            <div className='flex'>
             <Header />
             <Routes>
                 <Route path='/' element={<Home />} />

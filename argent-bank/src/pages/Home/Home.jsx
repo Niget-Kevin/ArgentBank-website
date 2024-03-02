@@ -5,9 +5,8 @@ import FeaturesItemData from '../../data/featuresItemData.json';
 import './home.scss';
 
 function Home() {
-    return (
-        <div className='homepage'>
-            <main>    
+    return (        
+            <main >    
                 <div className='hero'>
                     <section className='hero-content'>
                         <h2 className='sr-only'>Promoted Content</h2>
@@ -29,8 +28,7 @@ function Home() {
                         />
                     ))}
                 </section>
-            </main>
-        </div>
+            </main>        
     );
 }
 

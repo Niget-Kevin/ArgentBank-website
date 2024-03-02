@@ -8,18 +8,21 @@ html {
     color: #2c3e50;
   }
 
-  .header { color: #fff;
-    margin-bottom: 2rem;  
+  header { color: #fff;
+    /* display: flex;   */
   }
   h2 {
     font-size: 2rem;
-    padding-top: 50px;
+    padding-top: 1.3rem;     
   }
 
 .main {
     flex: 1;
 }
 
+.pad{
+  padding-top: 3rem;
+}
 
 
 .bg-dark {
@@ -43,7 +46,8 @@ html {
     background-color: white;
     width: 300px;
     margin: 0 auto;
-    margin-top: 3rem;
+    margin-top: 3rem; 
+    margin-bottom: 20rem;
     padding: 2rem;
   }
   
