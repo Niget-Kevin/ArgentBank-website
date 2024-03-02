@@ -43,7 +43,7 @@ function User () {
     }
     
     return (
-        <div className="header">
+        <div >
             { display ? 
                 <div>
                     <h2>Welcome back 

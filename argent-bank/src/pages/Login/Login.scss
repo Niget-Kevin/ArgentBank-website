@@ -8,9 +8,7 @@ html {
     color: #2c3e50;
   }
 
-  header { color: #fff;
-    /* display: flex;   */
-  }
+
   h2 {
     font-size: 2rem;
     padding-top: 1.3rem;     
@@ -47,7 +45,7 @@ html {
     width: 300px;
     margin: 0 auto;
     margin-top: 3rem; 
-    margin-bottom: 20rem;
+    margin-bottom: 23rem;
     padding: 2rem;
   }
   
@@ -80,14 +78,7 @@ html {
     font-size: 1.2rem;
   }
 
-  .edit-button {
-    background-color: #00bc77;
-    border-color: #00bc77;
-    color: #fff;
-    font-weight: bold;
-    margin-top: 1.5rem;
-    padding: 0.625rem;
-}
+
 
 .error-message { color: red;
   font-weight: bold;

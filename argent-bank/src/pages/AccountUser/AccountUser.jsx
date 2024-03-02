@@ -4,6 +4,7 @@ import { userProfile } from '../../redux/actions/userActions.jsx';
 import User from '../../components/User/User.jsx';
 import Account from '../../components/Account/Account.jsx';
 import AccountData from '../../data/accountData.json';
+import './AccountUser.scss'
 
 function AccountUser() {
     const token = useSelector((state) => state.auth.token);
@@ -48,9 +49,9 @@ function AccountUser() {
         }
     }, [dispatch, token]);
 
-    return (
-       /*  <div className='user-page'> */
+    return (         
             <main className='main bg-dark'>
+                <div className='user-page'>
                 < User />
                 {AccountData.map((data) => (
                     <Account 
@@ -60,8 +61,8 @@ function AccountUser() {
                         description={data.description}
                     />
                 ))}
-            </main>
-        /* </div> */
+                </div>
+            </main>           
     )
 }
 
