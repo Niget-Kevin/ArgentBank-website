@@ -6,8 +6,7 @@ import { logout } from '../../redux/actions/authActions';
 import './header.scss';
 
 function Header() {
-
-    const connected = useSelector((state) => state.auth.token);
+    const connected = useSelector((state) => state.auth.isConnected);
     const userName = useSelector((state) => state.user.userData.username); 
 
     const dispatch = useDispatch();
@@ -19,32 +18,33 @@ function Header() {
         localStorage.clear();
         navigate('/');
     }
+    
     return (                   
-            <nav className="main-nav">
-                <NavLink to="/" className="main-nav-logo">
-                    <img src={Logo} alt="Logo Argent Bank "  className="main-nav-logo-image"/>
-                    <h1 className='sr-only'>Argent Bank</h1>
-                </NavLink> 
-                {connected ? (
-                    <div className='login'>
-                        <NavLink to='/profile'>
-                            <i className='fa fa-user-circle' />
-                            <p>{userName}</p>
-                        </NavLink>
-                        <NavLink to='/' onClick={logoutHandler} className="main-nav-item">
-                            <i className='fa fa-sign-out'/>
-                            <p> Sign out </p>
-                        </NavLink>
-                    </div>
-                ) : (
-                    <div className='logout'>
-                        <NavLink to='/login' className="main-nav-item">
-                            <i className="fa fa-user-circle"></i>
-                            <p>Sign In</p>
-                        </NavLink>
-                    </div>
-                )}
-            </nav>        
+        <nav className="main-nav">
+            <NavLink to="/" className="main-nav-logo">
+                <img src={Logo} alt="Logo Argent Bank "  className="main-nav-logo-image"/>
+                <h1 className='sr-only'>Argent Bank</h1>
+            </NavLink> 
+            {connected ? (
+                <div className='login'>
+                    <NavLink to='/profile'>
+                        <i className='fa fa-user-circle' />
+                        <p>{userName}</p>
+                    </NavLink>
+                    <NavLink to='/' onClick={logoutHandler} className="main-nav-item">
+                        <i className='fa fa-sign-out'/>
+                        <p> Sign out </p>
+                    </NavLink>
+                </div>
+            ) : (
+                <div className='logout'>
+                    <NavLink to='/login' className="main-nav-item">
+                        <i className="fa fa-user-circle"></i>
+                        <p>Sign In</p>
+                    </NavLink>
+                </div>
+            )}
+        </nav>        
     )
 }
 

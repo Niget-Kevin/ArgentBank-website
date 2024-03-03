@@ -12,6 +12,7 @@ function AccountUser() {
 
 
     useEffect(() => {
+        console.log('Token in state:', token);
         if (token) {
             const userData = async () => {
                 try {
