@@ -31,7 +31,7 @@ export default function App () {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='login' element={<Login />} />
-                <Route path='profile' element={connected ? <User /> : <Navigate to="/login" />} />
+                <Route path='profile' element={connected ? <User /> : <Navigate to="/" />} />
             </Routes>
             </div>
             <Footer />
